@@ -1,0 +1,36 @@
+﻿@page
+@model liftoff_jamey_1.Pages.ApiExampleModel
+@{
+    Layout = "_Layout";
+}
+
+@* You can call javascript by filename *@
+<Script src="~/js/apiExample.js"></Script>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Here is a joke that is rendered on the server: </h3>
+                        <p>@Model.ServerJoke.JokeText</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Here is a joke that is rendered on the client: </h3>
+                        <p id="clientJoke"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
