@@ -1745,25 +1745,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/emilyalbert/.nuget/packages/": {}
+    "C:\\Users\\adama\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/emilyalbert/liftoff-jamey-1/liftoff-jamey-1/liftoff-jamey-1.csproj",
+      "projectUniqueName": "C:\\Users\\adama\\OneDrive\\Desktop\\BookWorm project\\liftoff-jamey-1\\liftoff-jamey-1\\liftoff-jamey-1.csproj",
       "projectName": "liftoff-jamey-1",
-      "projectPath": "/Users/emilyalbert/liftoff-jamey-1/liftoff-jamey-1/liftoff-jamey-1.csproj",
-      "packagesPath": "/Users/emilyalbert/.nuget/packages/",
-      "outputPath": "/Users/emilyalbert/liftoff-jamey-1/liftoff-jamey-1/obj/",
+      "projectPath": "C:\\Users\\adama\\OneDrive\\Desktop\\BookWorm project\\liftoff-jamey-1\\liftoff-jamey-1\\liftoff-jamey-1.csproj",
+      "packagesPath": "C:\\Users\\adama\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\adama\\OneDrive\\Desktop\\BookWorm project\\liftoff-jamey-1\\liftoff-jamey-1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/emilyalbert/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\adama\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "/usr/local/share/dotnet/sdk/7.0.311/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1822,7 +1823,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.311/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
