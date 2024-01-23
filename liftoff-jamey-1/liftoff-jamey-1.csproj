@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Files\" />
     <None Remove="Migrations\" />
   </ItemGroup>
   <ItemGroup>
@@ -29,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Files\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace liftoff_jamey_1.Models
 {
-	public class UserLogIn
+	public class User
 	{
 		public int Id { get; set; }
 		public string FirstName { get; set; }
@@ -9,7 +9,7 @@ namespace liftoff_jamey_1.Models
 		public string EmailAddress { get; set; }
 		public int Password { get; set; }
 
-		public UserLogIn()
+		public User()
 		{
 		}
 	}

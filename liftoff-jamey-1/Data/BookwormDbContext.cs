@@ -7,7 +7,10 @@ namespace liftoff_jamey_1.Data
 {
 	public class BookwormDbContext : DbContext
 	{
-		DbSet<UserLogIn> UserLogIns { get; set; }
+		DbSet<User> Users { get; set; }
+		DbSet<Search> Searches { get; set; }
+		DbSet<Book> Books { get; set; }
+
 		public BookwormDbContext(DbContextOptions<BookwormDbContext> options) : base(options)
 		{
 		}
