@@ -10,7 +10,6 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-liftoff_jamey_1-221cdb77-f4bd-4540-b803-12c580b47f1b")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("liftoff-jamey-1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
