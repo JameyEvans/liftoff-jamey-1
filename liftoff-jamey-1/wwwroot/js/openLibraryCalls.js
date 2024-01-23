@@ -1,6 +1,6 @@
 ﻿
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("click", () => {
     const searchResults = document.getElementById("searchResults");
 
     async function getSearchResults(searchTerm) {

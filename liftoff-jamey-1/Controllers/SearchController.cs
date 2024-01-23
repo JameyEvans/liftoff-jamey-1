@@ -7,6 +7,9 @@ namespace liftoff_jamey_1.Controllers
 {
     public class SearchContoller : Controller
     {
-
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }
