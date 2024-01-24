@@ -1,6 +1,14 @@
-﻿namespace liftoff_jamey_1.Views.BookClub
-{
-    public class Add
-    {
-    }
-}
+﻿@using liftoff_jamey_1.ViewModels
+@using liftoff_jamey_1.Models
+@model AddBookClubViewModel
+
+<h1>Create a new Book Club</h1>
+
+<form asp-controller="BookClub" asp-action="Add" method="post">
+
+	<div class="form-group">
+		<label asp-for"Name">BookClubName</label>
+		<input class="form-control" asp-for="BookClubName" />
+		<span asp-validation-for="BookClubName" class="text-danger"></span>
+	</div>
+</form>
