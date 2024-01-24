@@ -2,7 +2,8 @@
 {
     public class AddBookClubViewModel
     {
-        public string? BookClubName { get; set; }
+        public string? ClubName { get; set; }
+        public string? Location { get; set; }
 
         public AddBookClubViewModel()
         {

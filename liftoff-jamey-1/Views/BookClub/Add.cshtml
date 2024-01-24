@@ -7,8 +7,17 @@
 <form asp-controller="BookClub" asp-action="Add" method="post">
 
 	<div class="form-group">
-		<label asp-for"Name">BookClubName</label>
-		<input class="form-control" asp-for="BookClubName" />
-		<span asp-validation-for="BookClubName" class="text-danger"></span>
+		<label asp-for"Name">ClubName</label>
+		<input class="form-control" asp-for="ClubName" />
+		<span asp-validation-for="ClubName" class="text-danger"></span>
 	</div>
+
+	<div class="form-group">
+		<label asp-for"Location">Location</label>
+		<input class="form-control" asp-for="Location" />
+		<span asp-validation-for="Location" class="text-danger"></span>
+	</div>
+
+
+	<input type="submit" value="Create a Book Club"/>
 </form>
