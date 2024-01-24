@@ -1,20 +1,21 @@
-﻿
+﻿console.log("openLibraryCalls.js loaded.");
 
-document.addEventListener("click", () => {
-    const searchResults = document.getElementById("searchResults");
 
-    async function getSearchResults(searchTerm) {
-        const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${searchTerm}`);
 
-        if (!fetchResult.ok) {
-            return "Failed to fetch search from api";
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("submit").addEventListener("click", () => {
+        const searchResults = document.getElementById("searchResults");
+
+        async function getSearchResults(searchTerm) {
+            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${searchTerm.Replace(" ", "+")}`);
+
+            if (!fetchResult.ok) {
+                return "Failed to fetch search from api";
+            }
+            const jsonData = await fetchResult.json();
+            clientSearch.innerHTML = jsonData[0].title
         }
-        const jsonData = await fetchResult.json();
-        clientSearch.innerHTML = jsonData[0].title
-    }
 
-    getSearchResults();
-
-
-
+        getSearchResults(document.getElementById("searchQuery"));
+    })
 })
