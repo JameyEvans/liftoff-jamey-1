@@ -1,6 +1,32 @@
-﻿namespace liftoff_jamey_1.Views.BookClub
-{
-    public class Index
-    {
-    }
+﻿@model List<liftoff_jamey_1.Models.BookClub>
+
+@{
+
 }
+
+<h1>Book Clubs</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>ClubName</th>
+			<th>Location</th> 
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var bookclub in Model)
+		{
+			<tr>
+				<td>@bookclub.Id</td>
+				<td>@bookclub.ClubName</td>
+				<td>@bookclub.Location</td>
+				<td><a href="BookClubs/View/@bookclub.Id">View</a></td>
+			</tr>
+		}
+	</tbody>
+	<tr>
+		<td></td>
+	</tr>
+</table>

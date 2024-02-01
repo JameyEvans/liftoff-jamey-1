@@ -4,7 +4,22 @@
 
 <h1>Create a new Book Club</h1>
 
-<form asp-controller="BookClub" asp-action="Add" method="post">
+<form method="post" action="Add" class="mt-5">
+
+	<div class="mb-3">
+		<label for"" class="form-label">ClubName</label>
+		<input type="text" class="form-control" asp-for="ClubName">
+	</div>
+	<div class="mb-3">
+		<label for"" class="form-label">Location</label>
+		<input type="text" class="form-control" asp-for="Location">
+	</div>
+	
+	<button type="submit" class="btn-primary">Create a Book Club</button>
+</form>
+
+
+@*<form asp-controller="BookClub" asp-action="Add" method="post">
 
 	<div class="form-group">
 		<label asp-for"Name">ClubName</label>
@@ -19,5 +34,5 @@
 	</div>
 
 
-	<input type="submit" value="Create a Book Club"/>
-</form>
+	<input type="submit" value="Create a Book Club" />
+</form>*@
