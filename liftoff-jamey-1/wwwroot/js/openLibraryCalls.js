@@ -8,12 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("submit").addEventListener("click", () => {
         
-        const searchQuery = document.getElementById("searchQuery").textContent;
-
+        const searchQuery = document.getElementById("searchQuery");
         
         async function getSearchResults(searchTerm) {
         
-            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${searchTerm.replaceAll(" ", '+')}`);
+            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${searchTerm.toString().replace(/[" "]/g, '+')}`);
 
             if (!fetchResult.ok) {
                 return "Failed to fetch search from api";
