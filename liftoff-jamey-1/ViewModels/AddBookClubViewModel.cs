@@ -2,10 +2,11 @@
 {
     public class AddBookClubViewModel
     {
+        public int? Id { get; set; }
         public string? ClubName { get; set; }
         public string? Location { get; set; }
 
-        public AddBookClubViewModel()
+        public AddBookClubViewModel(List<Models.BookClub> bookClubs)
         {
 
         }
