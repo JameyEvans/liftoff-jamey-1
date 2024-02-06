@@ -30,9 +30,10 @@ namespace liftoff_jamey_1.Controllers
 		public IActionResult Add()
 		{
 			List<BookClub> bookClubs = context.BookClubs.ToList();
-			AddBookClubViewModel addBookClubViewModel = new AddBookClubViewModel(bookClubs);
+			AddBookClubViewModel viewModel = new AddBookClubViewModel();
+			//AddBookClubViewModel addBookClubViewModel = new BookClub(bookClubs);
 
-			return View(addBookClubViewModel);
+			return View(viewModel);
 		}
 
 		[HttpPost]

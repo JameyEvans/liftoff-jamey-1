@@ -23,9 +23,10 @@ namespace liftoff_jamey_1.Models
 			return ClubName;
 		}
 
-		public override bool Equals(object? obj)
+		public override bool Equals(object obj)
 		{
-			return obj is BookClub bookClub && Id == bookClub.Id;
+			return obj is BookClub @bookClub && 
+                Id == @bookClub.Id;
 		}
 
 		public override int GetHashCode()
