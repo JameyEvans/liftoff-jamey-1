@@ -20,13 +20,11 @@
 		{
 			<tr>
 				<td>@bookclub.Id</td>
+				<td><a asp-controller="BookClub" asp-action = "Detail" asp-route-id="@bookclub.Id">@bookclub.ClubName</a>"</td>
 				<td>@bookclub.ClubName</td>
 				<td>@bookclub.Location</td>
-				<td><a href="BookClubs/View/@bookclub.Id">View</a></td>
 			</tr>
 		}
 	</tbody>
-	<tr>
-		<td></td>
-	</tr>
+	
 </table>
