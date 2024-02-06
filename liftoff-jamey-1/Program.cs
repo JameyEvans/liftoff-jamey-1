@@ -71,7 +71,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-		   .AddEntityFrameworkStores<BookClubDbContext>();
+		   .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -79,7 +79,7 @@ IConfiguration configuration = new ConfigurationBuilder()
 			.AddJsonFile("appsettings.json")
 			.Build();
 
-builder.Services.AddDbContext<BookClubDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
@@ -106,27 +106,3 @@ if (!app.Environment.IsDevelopment())
 
         app.Run();
 
-
-
-
-
-
-
-
-/*public void ConfigureServices(IServiceCollection services)
-{
-	IConfiguration configuration = new ConfigurationBuilder()
-	.SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-	.AddJsonFile("appsettings.json")
-	.Build();
-
-	services.AddDbContext<BookClubDbContext>(options =>
-		options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
-
-	// Setup dependency injection
-	var serviceProvider = new ServiceCollection()
-	.AddDbContext<BookClubDbContext>(options =>
-	options.UseSqlite(configuration.GetConnectionString("DefaultConnection")))
-	.BuildServiceProvider();
-
-	var builder = WebApplication.CreateBuilder();*/

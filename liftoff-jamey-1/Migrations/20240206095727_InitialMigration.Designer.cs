@@ -10,8 +10,8 @@ using liftoff_jamey_1.Data;
 
 namespace liftoff_jamey_1.Migrations
 {
-    [DbContext(typeof(BookClubDbContext))]
-    [Migration("20240205231253_InitialMigration")]
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20240206095727_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

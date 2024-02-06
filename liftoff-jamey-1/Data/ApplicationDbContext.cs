@@ -11,13 +11,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace liftoff_jamey_1.Data
 {
-    public class BookClubDbContext : DbContext                   //IdentityDbContext<IdentityUser, IdentityRole, string>
+    public class ApplicationDbContext : DbContext                   //IdentityDbContext<IdentityUser, IdentityRole, string>
     {
-		public DbSet<BookClub> BookClubs { get; set; }
-
-        public BookClubDbContext(DbContextOptions<BookClubDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+        public DbSet<BookClub> BookClubs { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 

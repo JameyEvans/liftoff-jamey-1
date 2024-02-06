@@ -1,28 +1,35 @@
-﻿@model List<liftoff_jamey_1.Models.BookClub>
+﻿@model IEnumerable<BookClub>
 
-@{
+@{ViewData["Title"] = "Index"
+	;}
+<div class="container p-3">
+	<div class="row p-4">
+		<div class="col-6">
+			<h2 class="text-primary"> Book Clubs List</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="BookClub" asp-action="Create" class="btn btn-primary">
+				Create New Book Club!
+			</a>
+		</div>
+	</div>
+</div>
 
-}
 
-<h1>Book Clubs</h1>
-
-<table class="table">
+<table class="table table-bordered table-striped" style="width:100%">
 	<thead>
 		<tr>
-			<th>Id</th>
 			<th>ClubName</th>
-			<th>Location</th> 
+			<th>Location</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var bookclub in Model)
+		@foreach (var obj in Model)
 		{
 			<tr>
-				<td>@bookclub.Id</td>
-				<td><a asp-controller="BookClub" asp-action = "Detail" asp-route-id="@bookclub.Id">@bookclub.ClubName</a>"</td>
-				<td>@bookclub.ClubName</td>
-				<td>@bookclub.Location</td>
+				<td>@obj.ClubName</td>
+				<td>@obj.Location</td>
 			</tr>
 		}
 	</tbody>

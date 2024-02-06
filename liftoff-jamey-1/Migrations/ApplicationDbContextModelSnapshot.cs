@@ -9,8 +9,8 @@ using liftoff_jamey_1.Data;
 
 namespace liftoff_jamey_1.Migrations
 {
-    [DbContext(typeof(BookClubDbContext))]
-    partial class BookClubDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,10 @@ namespace liftoff_jamey_1.Migrations
                     b.ToTable("BookClubs");
                 });
 #pragma warning restore 612, 618
+        }
+
+        private class ApplicationDbContext
+        {
         }
     }
 }
