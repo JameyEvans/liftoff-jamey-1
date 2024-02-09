@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace liftoff_jamey_1.Data
 {
-    public class ApplicationDbContext : DbContext                   //IdentityDbContext<IdentityUser, IdentityRole, string>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

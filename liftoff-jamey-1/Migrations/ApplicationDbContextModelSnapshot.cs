@@ -36,9 +36,5 @@ namespace liftoff_jamey_1.Migrations
                 });
 #pragma warning restore 612, 618
         }
-
-        private class ApplicationDbContext
-        {
-        }
     }
 }
