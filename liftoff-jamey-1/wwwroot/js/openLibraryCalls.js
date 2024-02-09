@@ -4,10 +4,11 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const searchResults = document.getElementById("searchResults");
+    const searchResults = document.getElementById("searchResult");
 
-    document.getElementById("submit").addEventListener("click", () => {
+    document.getElementById("submit").addEventListener("click", (event) => {
         
+        event.preventDefault();
         const searchQuery = document.getElementById("searchQuery").value;
 
         console.log(searchQuery)
@@ -22,8 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 return "Failed to fetch search from api";
             }
             const jsonData = await fetchResult.json();
+
+
+            const text = jsonData.docs[0].first_sentence[0];
+
             
-            searchResults.innerHTML = jsonData;   
+         
+
+            searchResults.innerHTML = (text) ? text : "No results found.";  
         }
         
 
