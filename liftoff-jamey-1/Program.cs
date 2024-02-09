@@ -1,10 +1,12 @@
-﻿using liftoff_jamey_1.Data;
+using liftoff_jamey_1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using liftoff_jamey_1.Areas.Identity.Data;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("IdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityDbContextConnection' not found.");
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 

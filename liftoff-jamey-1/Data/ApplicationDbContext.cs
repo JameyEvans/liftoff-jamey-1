@@ -16,6 +16,7 @@ namespace liftoff_jamey_1.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
         public DbSet<BookClub> BookClubs { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
