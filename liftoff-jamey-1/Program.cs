@@ -1,3 +1,4 @@
+using System;
 using liftoff_jamey_1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("IdentityDbCont
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<SampleUser>(options => options.SignIn.RequireConfirmedAccount = true)
 		   .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
