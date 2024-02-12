@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table {
+    width: 70%
+}
