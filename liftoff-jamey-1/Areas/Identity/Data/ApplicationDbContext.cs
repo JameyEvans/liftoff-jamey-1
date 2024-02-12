@@ -20,14 +20,6 @@ namespace liftoff_jamey_1.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
-            //modelBuilder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
         }
     }
-    //public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<SampleUser>
-    //{
-    //    public void Configure(EntityTypeBuilder<SampleUser> modelBuilder)
-    //    {
-    //        modelBuilder.Property(x => x.ScreenName).HasMaxLength(30);
-    //    }
-    //}
 }
