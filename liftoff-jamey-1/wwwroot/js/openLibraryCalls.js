@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         async function getSearchResults(searchTerm) {
 
-            searchResults.innerHTML = ''
-            
+            searchResults.innerHTML = "<tr><th>Number</th><th>Name</th><th>Author</th><th>Date Published</th></tr >"
+
             const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}`);
 
             console.log(fetchResult);
@@ -26,18 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const jsonData = await fetchResult.json();
 
-            const doc = jsonData.docs;
-            console.log(doc[0].title)
-
-           
-
             for (i = 0; i < 20; i++) {
-                searchResult.innerHTML += `<tr>${i + 1}</tr><tr>${doc[i].title}</tr><tr>${doc[i].author_name}</tr><tr>${doc[i].publish_year}</tr>`
+                searchResult.innerHTML += `<tr><td>${i + 1}</td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td></tr>`;
             }
 
-            searchResults.innerHTML = (doc) ? doc : "No results found."
+            searchResults.innerHTML = (doc) ? doc : "No results found.";
         }
-        
+
 
         getSearchResults(searchQuery);
     })
