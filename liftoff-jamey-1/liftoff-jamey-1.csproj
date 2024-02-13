@@ -9,11 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Remove="Data\" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Update="app.db" CopyToOutputDirectory="Always" ExcludeFromSingleFile="true" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +22,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.25" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,4 +32,7 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
 </Project>
