@@ -61,7 +61,6 @@ namespace liftoff_jamey_1.Migrations
 
                     b.Property<string>("ScreenName")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
@@ -99,9 +98,32 @@ namespace liftoff_jamey_1.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserBookClubBookClubId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserBookClubUserId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserBookClubUserId", "UserBookClubBookClubId");
+
                     b.ToTable("BookClubs");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.UserBookClub", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BookClubId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "BookClubId");
+
+                    b.HasIndex("BookClubId");
+
+                    b.ToTable("UserBookClubs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -236,6 +258,32 @@ namespace liftoff_jamey_1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
+                {
+                    b.HasOne("liftoff_jamey_1.Models.UserBookClub", null)
+                        .WithMany("bookClubs")
+                        .HasForeignKey("UserBookClubUserId", "UserBookClubBookClubId");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.UserBookClub", b =>
+                {
+                    b.HasOne("liftoff_jamey_1.Models.BookClub", "BookClub")
+                        .WithMany("UserBookClubs")
+                        .HasForeignKey("BookClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("liftoff_jamey_1.Areas.Identity.Data.SampleUser", "User")
+                        .WithMany("UserBookClubs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookClub");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -285,6 +333,21 @@ namespace liftoff_jamey_1.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Areas.Identity.Data.SampleUser", b =>
+                {
+                    b.Navigation("UserBookClubs");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
+                {
+                    b.Navigation("UserBookClubs");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.UserBookClub", b =>
+                {
+                    b.Navigation("bookClubs");
                 });
 #pragma warning restore 612, 618
         }

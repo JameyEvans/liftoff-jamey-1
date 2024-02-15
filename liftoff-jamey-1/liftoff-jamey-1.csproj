@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Data\" />
+    <None Remove="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -34,5 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
 </Project>

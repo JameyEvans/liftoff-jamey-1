@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace liftoff_jamey_1.Migrations
 {
-    public partial class InitialMigrations : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace liftoff_jamey_1.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    ScreenName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    ScreenName = table.Column<string>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -47,20 +47,6 @@ namespace liftoff_jamey_1.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BookClubs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ClubName = table.Column<string>(type: "TEXT", nullable: false),
-                    Location = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookClubs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +155,46 @@ namespace liftoff_jamey_1.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BookClubs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ClubName = table.Column<string>(type: "TEXT", nullable: false),
+                    Location = table.Column<string>(type: "TEXT", nullable: true),
+                    UserBookClubBookClubId = table.Column<int>(type: "INTEGER", nullable: true),
+                    UserBookClubUserId = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookClubs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserBookClubs",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    BookClubId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserBookClubs", x => new { x.UserId, x.BookClubId });
+                    table.ForeignKey(
+                        name: "FK_UserBookClubs_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserBookClubs_BookClubs_BookClubId",
+                        column: x => x.BookClubId,
+                        principalTable: "BookClubs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -205,10 +231,35 @@ namespace liftoff_jamey_1.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookClubs_UserBookClubUserId_UserBookClubBookClubId",
+                table: "BookClubs",
+                columns: new[] { "UserBookClubUserId", "UserBookClubBookClubId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserBookClubs_BookClubId",
+                table: "UserBookClubs",
+                column: "BookClubId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_BookClubs_UserBookClubs_UserBookClubUserId_UserBookClubBookClubId",
+                table: "BookClubs",
+                columns: new[] { "UserBookClubUserId", "UserBookClubBookClubId" },
+                principalTable: "UserBookClubs",
+                principalColumns: new[] { "UserId", "BookClubId" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_UserBookClubs_AspNetUsers_UserId",
+                table: "UserBookClubs");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_BookClubs_UserBookClubs_UserBookClubUserId_UserBookClubBookClubId",
+                table: "BookClubs");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -225,13 +276,16 @@ namespace liftoff_jamey_1.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BookClubs");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "UserBookClubs");
+
+            migrationBuilder.DropTable(
+                name: "BookClubs");
         }
     }
 }
