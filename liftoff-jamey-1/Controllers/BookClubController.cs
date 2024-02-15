@@ -2,24 +2,26 @@
 using Microsoft.EntityFrameworkCore;
 using liftoff_jamey_1.Data;
 using liftoff_jamey_1.Models;
-
-
+using Microsoft.AspNetCore.Identity;
 namespace liftoff_jamey_1.Controllers
 {
 	public class BookClubController : Controller
 	{
-		private readonly ApplicationDbContext _db;
-		public BookClubController(ApplicationDbContext db)
+		private readonly ApplicationDbContext _context;
+
+        public BookClubController(ApplicationDbContext context)
 		{
-			_db = db;
+			_context = context;
 		}
 
 
-		public IActionResult Index()
-		{
-			IEnumerable<BookClub> objBookClubList = _db.BookClubs;
-			return View(objBookClubList);
-		}
+        public IActionResult Index()
+        {
+            IEnumerable<BookClub> objBookClubList = _context.BookClubs;
+            return View(objBookClubList);
+        }
+
+
 
         //GET
         public IActionResult Create()
@@ -33,9 +35,12 @@ namespace liftoff_jamey_1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(BookClub obj)
         {
-            _db.BookClubs.Add(obj);
-            _db.SaveChanges();
+            _context.BookClubs.Add(obj);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
     }
+
 }
+
+

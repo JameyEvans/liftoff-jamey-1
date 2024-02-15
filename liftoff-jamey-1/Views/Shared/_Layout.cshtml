@@ -24,16 +24,22 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="BookClub" asp-action="Index">Book Clubs</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Search</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Title</a>
-                                <a class="dropdown-item" href="#">Author</a>
-                                <a class="dropdown-item" href="#">Genre</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Book Clubs</a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Join" asp-action="Index">Join a Book Club</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Search" asp-action="Index">Search</a>
+                        </li>
+                        @*<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Search</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Title</a>
+                <a class="dropdown-item" href="#">Author</a>
+                <a class="dropdown-item" href="#">Genre</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Book Clubs</a>
+            </div>
+        </li>*@
                     </ul>
                     <partial name="_LoginPartial" />
                     @*@<form class="d-flex">

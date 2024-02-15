@@ -18,11 +18,16 @@
 
 <table class="table table-bordered table-striped" style="width:100%">
 	<thead>
-		<tr>
-			<th>ClubName</th>
-			<th>Location</th>
-			<th></th>
-		</tr>
+        <tr>
+            <th>ClubName</th>
+            <th>Location</th>
+            <th></th>
+            <td>
+                <form asp-action="AddToUser" asp-route-clubId="@User" method="post">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </td>
+        </tr>
 	</thead>
 	<tbody>
 		@foreach (var obj in Model)
