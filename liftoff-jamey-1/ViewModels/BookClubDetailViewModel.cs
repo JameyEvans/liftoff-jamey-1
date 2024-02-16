@@ -9,12 +9,5 @@ namespace liftoff_jamey_1.ViewModels
 		public string ClubName { get; set; }
 		public string Location { get; set; }
 
-  //      public BookClubDetailViewModel(BookClub theBookClub)
-		//{
-  //          BookClubId = theBookClub.Id;
-		//	ClubName = theBookClub.ClubName;
-		//	Location = theBookClub.Location;
-		//}
-
 	}
 }

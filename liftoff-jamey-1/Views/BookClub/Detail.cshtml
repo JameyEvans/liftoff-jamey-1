@@ -1,18 +1,46 @@
 ﻿
 @model liftoff_jamey_1.ViewModels.BookClubDetailViewModel
 
-<h1>@Model.ClubName</h1>
 
-<table class="table">
-	<tr>
-		<th>ClubName</th>
-		<td>@Model.ClubName</td>
-	</tr>
-	<tr>
-		<th>Location</th>
-		<td>@Model.Location</td>
-	</tr>
+@{
+    ViewData["Title"] = "Book Club Details";
+}
 
-</table>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">@Model.ClubName</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.Location</p>
+                    <!-- Add other properties as needed -->
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Join Club</a>
+                    <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.BookClubId" class="btn btn-primary">Add Book to BookClub</a>
+                    <!-- Add other actions as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-@*<a asp-controller="Search" asp-action="AddBook" asp-route-id="@Model.BookClubId">Add Book to BookClub</a>*@
+@*<h1>@Model.ClubName</h1>
+
+    <table class="table">
+        <tr>
+            <th>ClubName</th>
+            <td>@Model.ClubName</td>
+        </tr>
+        <tr>
+            <th>Location</th>
+            <td>@Model.Location</td>
+        </tr>
+    </table>*@
+@*TODO: add book to book club
+    <th>Currently reading</th>
+    <td>Model.book</td>*@
+@*this links you to the /search page*@
+<a asp-controller="Search" asp-action="Index" asp-route-id="@Model.BookClubId">Add Book to BookClub</a>
