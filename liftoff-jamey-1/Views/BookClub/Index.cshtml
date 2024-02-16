@@ -1,6 +1,7 @@
-﻿@model List<BookClub>
+﻿@using liftoff_jamey_1.Models;
+@model List<BookClub>
 
-@{ViewData["Title"] = "Index";   }
+@{ViewData["Title"] = "BookClub";   }
 
 <div class="container p-3">
 	<div class="row p-4">
@@ -35,7 +36,7 @@ else
 		@foreach (var obj in Model)
 		{
 			<tr>
-				<td><a asp-asp-controller="BookClub" asp-action="Detail" asp-route-itemid="@obj.Id">@obj.ClubName</a></td>
+				<td><a asp-asp-controller="BookClub" asp-action="Detail" asp-route-id="@obj.Id">@obj.ClubName</a></td>
 				<td>@obj.Location</td>
 			</tr>
 		}
