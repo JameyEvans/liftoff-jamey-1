@@ -1,10 +1,15 @@
 ﻿console.log("openLibraryCalls.js loaded.");
 
-
+function selectBook(key)
+{
+   return console.log(key)
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 
     const searchResults = document.getElementById("searchResult");
+
+    
 
     document.getElementById("submit").addEventListener("click", (event) => {
 
@@ -27,13 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const jsonData = await fetchResult.json();
 
             for (i = 0; i < 20; i++) {
-                searchResult.innerHTML += `<tr><td>${i + 1}</td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td></tr>`;
+                searchResult.innerHTML += `<tr><td><button type="button" onClick="selectBook('${jsonData.docs[i].key}');">${i + 1}</button></td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td></tr>`;
             }
 
-            searchResults.innerHTML = (doc) ? doc : "No results found.";
         }
 
-
         getSearchResults(searchQuery);
+        
     })
 })
