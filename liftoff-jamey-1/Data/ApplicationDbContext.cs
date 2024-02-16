@@ -20,6 +20,7 @@ namespace liftoff_jamey_1.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
-        }
+			modelBuilder.Entity<BookClub>().Property(c => c.Location).IsRequired();
+		}
     }
 }

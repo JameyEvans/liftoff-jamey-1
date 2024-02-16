@@ -61,7 +61,6 @@ namespace liftoff_jamey_1.Migrations
 
                     b.Property<string>("ScreenName")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
@@ -97,6 +96,7 @@ namespace liftoff_jamey_1.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

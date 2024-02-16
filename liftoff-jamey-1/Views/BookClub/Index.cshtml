@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookClub>
+﻿@model List<BookClub>
 
 @{ViewData["Title"] = "Index";   }
 
@@ -15,7 +15,13 @@
 	</div>
 </div>
 
-
+@if(Model.Count == 0)
+{
+	<p>No BookClubs yet</p>
+}
+else
+{
+	
 <table class="table table-bordered table-striped" style="width:100%">
 	<thead>
 		<tr>
@@ -28,10 +34,11 @@
 		@foreach (var obj in Model)
 		{
 			<tr>
-				<td>@obj.ClubName</td>
+				<td><a asp-asp-controller="BookClub" asp-action="Detail" asp-route-itemid="@obj.Id">@obj.ClubName</a></td>
 				<td>@obj.Location</td>
 			</tr>
 		}
 	</tbody>
 	
 </table>
+}

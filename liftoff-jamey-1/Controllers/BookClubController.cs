@@ -17,8 +17,8 @@ namespace liftoff_jamey_1.Controllers
 
 		public IActionResult Index()
 		{
-			IEnumerable<BookClub> objBookClubList = _db.BookClubs;
-			return View(objBookClubList);
+			List<BookClub> bookClubs = _db.BookClubs.ToList();
+			return View(bookClubs);
 		}
 
         //GET
@@ -36,6 +36,12 @@ namespace liftoff_jamey_1.Controllers
             _db.BookClubs.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Detail(int id)
+        {
+            BookClub bookClub = _db.BookClubs.Find(id);
+            return View(bookClub);
         }
     }
 }

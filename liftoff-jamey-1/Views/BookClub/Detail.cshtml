@@ -1,0 +1,17 @@
+﻿@model liftoff_jamey_1.ViewModels.BookClubDetailViewModel
+
+<h1>@Model.ClubName</h1>
+
+<table class="table">
+	<tr>
+		<th>ClubName</th>
+		<td>@Model.ClubName</td>
+	</tr>
+	<tr>
+		<th>Location</th>
+		<td>@Model.Location</td>
+	</tr>
+
+</table>
+
+<a asp-controller="Search" asp-action="AddBook" asp-route-id="@Model.BookClubId">Add Book to BookClub</a>
