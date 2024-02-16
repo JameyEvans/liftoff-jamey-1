@@ -11,10 +11,10 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">@Model.ClubName</h2>
+                    <h2 class="card-title">Club: @Model.ClubName</h2>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">@Model.Location</p>
+                    <p class="card-text">Location: @Model.Location</p>
                     <!-- Add other properties as needed -->
                 </div>
                 <div class="card-footer">
@@ -39,8 +39,8 @@
             <td>@Model.Location</td>
         </tr>
     </table>*@
+
 @*TODO: add book to book club
     <th>Currently reading</th>
     <td>Model.book</td>*@
 @*this links you to the /search page*@
-<a asp-controller="Search" asp-action="Index" asp-route-id="@Model.BookClubId">Add Book to BookClub</a>
