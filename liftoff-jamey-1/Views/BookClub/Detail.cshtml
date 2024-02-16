@@ -1,0 +1,31 @@
+﻿
+@model liftoff_jamey_1.ViewModels.BookClubDetailViewModel
+
+
+@{
+    ViewData["Title"] = "Book Club Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Club: @Model.ClubName</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Location: @Model.Location</p>
+                    <p class="card-text">Creator: <!--add prop here--></p>
+                    <p class="card-text">Currently Reading: <!--TODO: add prop here--></p>
+                    <p class="card-text">Members: <!--add prop here--></p>
+                    <!-- Add other properties as needed -->
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Join Club</a>
+                    <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.BookClubId" class="btn btn-primary">Add Book to BookClub</a>
+                    <!-- Add other actions as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

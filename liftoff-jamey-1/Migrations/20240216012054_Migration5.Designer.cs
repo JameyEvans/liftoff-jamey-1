@@ -11,8 +11,8 @@ using liftoff_jamey_1.Data;
 namespace liftoff_jamey_1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240212094521_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20240216012054_Migration5")]
+    partial class Migration5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,6 @@ namespace liftoff_jamey_1.Migrations
 
                     b.Property<string>("ScreenName")
                         .IsRequired()
-                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
@@ -99,6 +98,7 @@ namespace liftoff_jamey_1.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

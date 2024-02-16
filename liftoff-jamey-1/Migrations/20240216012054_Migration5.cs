@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace liftoff_jamey_1.Migrations
 {
-    public partial class InitialMigrations : Migration
+    public partial class Migration5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace liftoff_jamey_1.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    ScreenName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    ScreenName = table.Column<string>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -56,7 +56,7 @@ namespace liftoff_jamey_1.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ClubName = table.Column<string>(type: "TEXT", nullable: false),
-                    Location = table.Column<string>(type: "TEXT", nullable: true)
+                    Location = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
