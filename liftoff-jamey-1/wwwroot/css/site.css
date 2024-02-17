@@ -29,3 +29,9 @@ tr:nth-child(even) {
 table {
     width: 70%
 }
+
+.book-cover {
+    max-width: 100px;
+    width: 100px;
+    height: auto;
+}
