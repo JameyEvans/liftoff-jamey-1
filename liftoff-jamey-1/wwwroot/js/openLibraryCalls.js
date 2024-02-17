@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         async function getSearchResults(searchTerm) {
 
-            searchResults.innerHTML = "<tr><th>Number</th><th>Name</th><th>Author</th><th>Date Published</th></tr >"
+            searchResults.innerHTML = "<tr><th>Number</th><th>Title</th><th>Author</th><th>Date Published</th></tr>"
 
             const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}`);
 
