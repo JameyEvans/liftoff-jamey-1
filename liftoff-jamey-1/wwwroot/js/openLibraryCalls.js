@@ -30,9 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let coverUrl = "";
                 if (Array.isArray(jsonData.docs[i].lccn) && jsonData.docs[i].lccn.length > 0) {
                     coverUrl = `https://covers.openlibrary.org/b/lccn/${jsonData.docs[i].lccn[0]}-S.jpg`;
-                } else {
-                    coverUrl = "";
-                }
+                } 
                 let coverImageHTML = coverUrl ? `<img class="book-cover" src="${coverUrl}" alt="Book Cover">` : "<span>No Image Found</span>";
                 searchResults.innerHTML += `<tr><td>${i + 1}</td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td><td>${coverImageHTML}</td></tr>`;
 
