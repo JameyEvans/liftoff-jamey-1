@@ -29,3 +29,11 @@ tr:nth-child(even) {
 table {
     width: 70%
 }
+
+
+.book-cover {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+}

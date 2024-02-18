@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         async function getSearchResults(searchTerm) {
 
-            searchResults.innerHTML = "<tr><th>Number</th><th>Name</th><th>Author</th><th>Date Published</th></tr >"
+            searchResults.innerHTML = "<tr><th>Number</th><th>Title</th><th>Author</th><th>Date Published</th><th>Book Cover Image</th></tr >"
 
-            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}`);
+            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit=20`);
 
             console.log(fetchResult);
 
@@ -26,14 +26,43 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const jsonData = await fetchResult.json();
 
-            for (i = 0; i < 20; i++) {
-                searchResult.innerHTML += `<tr><td>${i + 1}</td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td></tr>`;
-            }
+            for (let i = 0; i < 20; i++) {
+                let coverUrl = "";
+                if (Array.isArray(jsonData.docs[i].lccn) && jsonData.docs[i].lccn.length > 0) {
+                    coverUrl = `https://covers.openlibrary.org/b/lccn/${jsonData.docs[i].lccn[0]}-S.jpg`;
+                } 
+                let coverImageHTML = coverUrl ? `<img class="book-cover" src="${coverUrl}" alt="Book Cover">` : "<span>No Image Found</span>";
+                searchResults.innerHTML += `<tr><td>${i + 1}</td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td><td>${coverImageHTML}</td></tr>`;
 
-            searchResults.innerHTML = (doc) ? doc : "No results found.";
+                console.log("Cover URL:", coverUrl);
+            }
+            if (jsonData.docs.length === 0) {
+                searchResults.innerHTML = "No results found.";
+            }
+            
         }
 
 
         getSearchResults(searchQuery);
     })
 })
+
+
+
+
+//searchResults.innerHTML = (doc) ? doc : "No results found.";
+
+/*for (let i = 0; i < 20; i++) {
+    let coverUrl = `https://covers.openlibrary.org/b/lccn/${jsonData.docs[i].lccn}-S.jpg`;
+    let coverImageHTML = jsonData.docs[i].cover_i ? `<img class="book-cover" src="${coverUrl}" alt="Book Cover">` : "<span>No Image Found</span>";
+    searchResults.innerHTML += `<tr><td>${i + 1}</td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td><td>${coverImageHTML}</td></tr>`;
+
+}*/
+
+/*for (let i = 0; i < 20; i++) {
+    let coverUrl = `https://covers.openlibrary.org/b/lccn/${jsonData.docs[i].lccn[0]}-S.jpg`;
+    console.log("Cover URL:", coverUrl);
+    let coverImageHTML = (jsonData.docs[i].cover_i !== null && jsonData.docs[i].cover_i !== 0) ? `<img class="book-cover" src="${coverUrl}" alt="Book Cover">` : "<span>No Image Found</span>";
+    searchResults.innerHTML += `<tr><td>${i + 1}</td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td><td>${coverImageHTML}</td></tr>`;
+
+}*/
