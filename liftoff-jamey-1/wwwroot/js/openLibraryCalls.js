@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             searchResults.innerHTML = "<tr><th>Number</th><th>Title</th><th>Author</th><th>Date Published</th><th>Book Cover Image</th></tr >"
 
-            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}`);
+            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit=20`);
 
             console.log(fetchResult);
 
