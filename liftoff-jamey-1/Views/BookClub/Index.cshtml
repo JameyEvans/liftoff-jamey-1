@@ -30,7 +30,7 @@ else
 		<tr>
 			<th>Club Name</th>
 			<th>Location</th>
-			<th></th>
+			<th>Creator</th>
 		</tr>
 	</thead>
 
@@ -40,6 +40,7 @@ else
 			<tr>
 				<td><a asp-asp-controller="BookClub" asp-action="Detail" asp-route-id="@obj.Id">@obj.ClubName</a></td>
 				<td>@obj.Location</td>
+				<td>@obj.CreatorId</td>
 			</tr>
 		}
 	</tbody>
