@@ -11,8 +11,8 @@ using liftoff_jamey_1.Data;
 namespace liftoff_jamey_1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240216012054_Migration5")]
-    partial class Migration5
+    [Migration("20240220103929_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,7 +89,7 @@ namespace liftoff_jamey_1.Migrations
 
             modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -101,9 +101,37 @@ namespace liftoff_jamey_1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("BookClubs");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.UserBookClub", b =>
+                {
+                    b.Property<int>("UserBookClubId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BookClubId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserBookClubId");
+
+                    b.HasIndex("BookClubId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserBookClubs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -238,6 +266,36 @@ namespace liftoff_jamey_1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
+                {
+                    b.HasOne("liftoff_jamey_1.Areas.Identity.Data.SampleUser", "Owner")
+                        .WithMany("OwnedBookClubs")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.UserBookClub", b =>
+                {
+                    b.HasOne("liftoff_jamey_1.Models.BookClub", "BookClub")
+                        .WithMany("Members")
+                        .HasForeignKey("BookClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("liftoff_jamey_1.Areas.Identity.Data.SampleUser", "User")
+                        .WithMany("UserBookClubs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookClub");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -287,6 +345,18 @@ namespace liftoff_jamey_1.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Areas.Identity.Data.SampleUser", b =>
+                {
+                    b.Navigation("OwnedBookClubs");
+
+                    b.Navigation("UserBookClubs");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
+                {
+                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

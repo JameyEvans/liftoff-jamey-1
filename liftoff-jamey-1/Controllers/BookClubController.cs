@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using liftoff_jamey_1.Data;
 using liftoff_jamey_1.Models;
-using liftoff_jamey_1.ViewModels;
 using System;
-
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace liftoff_jamey_1.Controllers
 {
@@ -19,11 +19,12 @@ namespace liftoff_jamey_1.Controllers
 
         public IActionResult Index()
         {
-            List<BookClub> bookClubs = _db.BookClubs.ToList();
+            var bookClubs = _db.BookClubs.ToList();
             return View(bookClubs);
         }
 
         //GET
+        [Authorize]
         public IActionResult Create()
         {
 
@@ -32,55 +33,51 @@ namespace liftoff_jamey_1.Controllers
 
         //POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(BookClub obj)
+        public IActionResult Create(BookClub bookClub)
         {
-            _db.BookClubs.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+                // Set owner
+                bookClub.OwnerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                _db.BookClubs.Add(bookClub);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
         }
 
-       
+
         public IActionResult Detail(int id)
         {
             // Retrieve the book club from the database based on the id
-            var bookClub = _db.BookClubs.FirstOrDefault(bc => bc.Id == id);
+            var bookClub = _db.BookClubs.Include(bc => bc.Members).FirstOrDefault(bc => bc.Id == id);
 
             if (bookClub == null)
             {
-                return NotFound(); // Return a 404 Not Found error if the book club doesn't exist
+                return NotFound(); // Return a 404 Not Found error if the book club doesn't exist or been deleted
             }
 
             // Create a BookClubDetailViewModel and populate it with the details of the book club
-            BookClubDetailViewModel viewModel = new BookClubDetailViewModel
+            BookClub bookClubDetails = new BookClub
             {
-                BookClubId = bookClub.Id,
+                Id = bookClub.Id,
                 ClubName = bookClub.ClubName,
                 Location = bookClub.Location,
+                Owner = bookClub.Owner,
+                Members = bookClub.Members
                 // Populate other properties of the view model as needed
             };
 
-            return View(viewModel); // Pass the view model to the Razor view
+            return View(bookClubDetails); // Pass the view model to the Razor view
+        }
 
-
-
-
-            //var bookClub = _db.BookClubs.FirstOrDefault(bc => bc.Id == id);
-            //BookClubDetailViewModel bookClubDetailViewModel = new BookClubDetailViewModel(bookClub);
-            //return View(bookClubDetailViewModel);
-
-            //BookClub theBookClub = _db.BookClubs.Include(b => b.ClubName).Single(j => j.Id == id);
-
-            //BookClubDetailViewModel bookClubDetailViewModel = new BookClubDetailViewModel(theBookClub);
-
-            //return View(bookClubDetailViewModel);
-
-            //Job theJob = context.Jobs.Include(j => j.Employer).Include(j => j.Skills).Single(j => j.Id == id);
-
-            //JobDetailViewModel jobDetailViewModel = new JobDetailViewModel(theJob);
-
-            //return View(jobDetailViewModel);
-
+        [HttpPost]
+        public IActionResult Join(int bookClubId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userBookClub = new UserBookClub { UserId = userId, BookClubId = bookClubId };
+            _db.UserBookClubs.Add(userBookClub);
+            _db.SaveChanges();
+            return RedirectToAction("user");
         }
     }
+
 }
+    
+
