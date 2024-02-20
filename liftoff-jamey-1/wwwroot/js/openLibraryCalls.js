@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         async function getSearchResults(searchTerm) {
 
-            searchResults.innerHTML = "<tr><th>Number</th><th>Title</th><th>Author</th><th>Date Published</th></tr>"
+            searchResults.innerHTML = "<tr><th></th><th>Title</th><th>Author</th><th>Date Published</th></tr>"
 
-            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}`);
+            const fetchResult = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(searchTerm)}&limit="/title/author"`);
 
             console.log(fetchResult);
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const jsonData = await fetchResult.json();
 
             for (i = 0; i < 20; i++) {
-                searchResult.innerHTML += `<tr><td><button type="button" onClick="selectBook('${jsonData.docs[i].key}');">${i + 1}</button></td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td></tr>`;
+                searchResult.innerHTML += `<tr><td><button type="button" onClick="selectBook('${jsonData.docs[i].isbn[0]}');">Add Book</button></td><td>${jsonData.docs[i].title}</td><td>${jsonData.docs[i].author_name}</td><td>${jsonData.docs[i].first_publish_year}</td></tr>`;
             }
 
         }

@@ -11,8 +11,8 @@ using liftoff_jamey_1.Data;
 namespace liftoff_jamey_1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240216012054_Migration5")]
-    partial class Migration5
+    [Migration("20240218230709_ThirdMigration")]
+    partial class ThirdMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,9 +89,12 @@ namespace liftoff_jamey_1.Migrations
 
             modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("BookId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClubName")
                         .IsRequired()

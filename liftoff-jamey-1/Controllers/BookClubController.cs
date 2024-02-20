@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using liftoff_jamey_1.Data;
 using liftoff_jamey_1.Models;
-using liftoff_jamey_1.ViewModels;
-using System;
+using liftoff_jamey_1.ViewModels;   
 
+using System;
+using static System.Net.WebRequestMethods;
+using Newtonsoft.Json;
 
 namespace liftoff_jamey_1.Controllers
 {
@@ -40,7 +42,6 @@ namespace liftoff_jamey_1.Controllers
             return RedirectToAction("Index");
         }
 
-       
         public IActionResult Detail(int id)
         {
             // Retrieve the book club from the database based on the id
@@ -57,30 +58,33 @@ namespace liftoff_jamey_1.Controllers
                 BookClubId = bookClub.Id,
                 ClubName = bookClub.ClubName,
                 Location = bookClub.Location,
+                BookId = bookClub.BookId,
                 // Populate other properties of the view model as needed
             };
 
             return View(viewModel); // Pass the view model to the Razor view
 
 
+        }
 
+        private readonly HttpClient httpClient = new HttpClient();
 
-            //var bookClub = _db.BookClubs.FirstOrDefault(bc => bc.Id == id);
-            //BookClubDetailViewModel bookClubDetailViewModel = new BookClubDetailViewModel(bookClub);
-            //return View(bookClubDetailViewModel);
+        public async Task<ActionResult> Details(int id)
+        {
+            string apiUrl = $"https://openlibrary.org/isbn/{id}[0]";
 
-            //BookClub theBookClub = _db.BookClubs.Include(b => b.ClubName).Single(j => j.Id == id);
-
-            //BookClubDetailViewModel bookClubDetailViewModel = new BookClubDetailViewModel(theBookClub);
-
-            //return View(bookClubDetailViewModel);
-
-            //Job theJob = context.Jobs.Include(j => j.Employer).Include(j => j.Skills).Single(j => j.Id == id);
-
-            //JobDetailViewModel jobDetailViewModel = new JobDetailViewModel(theJob);
-
-            //return View(jobDetailViewModel);
-
+            HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                var book = JsonConvert.DeserializeObject<BookClubDetailViewModel>(jsonResponse);
+                return View(book);
+            }
+            else
+            {
+                // Handle error
+                return Content("Error fetching book details");
+            }
         }
     }
 }

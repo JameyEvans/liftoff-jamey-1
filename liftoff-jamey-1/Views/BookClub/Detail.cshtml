@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <p class="card-text">Location: @Model.Location</p>
                     <p class="card-text">Creator: <!--add prop here--></p>
-                    <p class="card-text">Currently Reading: <!--TODO: add prop here--></p>
+                    <p class="card-text">Currently Reading: <a asp-route-id="@Model.BookId">@Model.BookId</a>  <!--TODO: add prop here--></p>
                     <p class="card-text">Members: <!--add prop here--></p>
                     <!-- Add other properties as needed -->
                 </div>

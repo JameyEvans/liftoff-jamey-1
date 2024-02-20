@@ -87,9 +87,12 @@ namespace liftoff_jamey_1.Migrations
 
             modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("BookId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClubName")
                         .IsRequired()
