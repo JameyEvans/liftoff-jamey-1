@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using liftoff_jamey_1.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Security.Claims;
 
 namespace liftoff_jamey_1.Data
 {
@@ -44,6 +45,11 @@ namespace liftoff_jamey_1.Data
                 .WithMany(bc => bc.Members)
                 .HasForeignKey(ubc => ubc.BookClubId);
 
+        }
+
+        internal Task GetUserAsync(ClaimsPrincipal user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

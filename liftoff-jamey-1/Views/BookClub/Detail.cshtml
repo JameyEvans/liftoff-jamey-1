@@ -20,7 +20,10 @@
                     <!-- Add other properties as needed -->
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Join Club</a>
+                    <form asp-action="Join" asp-controller="BookClub" method="post">
+                        <input type="hidden" name="bookClubId" value="@Model.ClubName" />
+                        <button type="submit" class="btn btn-primary">Join</button>
+                    </form>
 
 
                     <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-primary">Add Book to BookClub</a>

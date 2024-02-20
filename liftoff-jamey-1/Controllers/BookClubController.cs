@@ -74,7 +74,7 @@ namespace liftoff_jamey_1.Controllers
             var userBookClub = new UserBookClub { UserId = userId, BookClubId = bookClubId };
             _db.UserBookClubs.Add(userBookClub);
             _db.SaveChanges();
-            return RedirectToAction("user");
+            return RedirectToAction("/user");
         }
     }
 
