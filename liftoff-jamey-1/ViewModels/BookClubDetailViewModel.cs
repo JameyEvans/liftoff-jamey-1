@@ -8,7 +8,6 @@ namespace liftoff_jamey_1.ViewModels
 		public int BookClubId { get; set; }
 		public string ClubName { get; set; }
 		public string Location { get; set; }
-		
-
-	}
+        public string? CreatorName { get; internal set; }
+    }
 }

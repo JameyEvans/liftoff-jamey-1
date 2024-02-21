@@ -21,13 +21,17 @@ namespace liftoff_jamey_1.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<BookClub>()
-                .HasOne(bc => bc.CreatorId)
-                .WithMany()
-                .HasForeignKey(bc => bc.CreatorId);
+            
 
             modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
             modelBuilder.Entity<BookClub>().Property(b => b.Location).IsRequired();
+
+            modelBuilder.Entity<BookClub>()
+            .HasOne(bc => bc.Creator) // Each BookClub has one Creator
+            .WithMany() // Creator can create many BookClubs
+            .HasForeignKey(b => b.CreatorId) // Define the foreign key
+            .IsRequired(false);
+            
             //TODO: task 3: enter your join table relationship properties for selected book | ex: .hasmany(b => b.bookclub) 
         }
     }
