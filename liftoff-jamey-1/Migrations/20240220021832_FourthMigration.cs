@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace liftoff_jamey_1.Migrations
 {
-    public partial class ThirdMigration : Migration
+    public partial class FourthMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,6 +62,21 @@ namespace liftoff_jamey_1.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookClubs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Author = table.Column<string>(type: "TEXT", nullable: false),
+                    DatePublished = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,6 +242,9 @@ namespace liftoff_jamey_1.Migrations
 
             migrationBuilder.DropTable(
                 name: "BookClubs");
+
+            migrationBuilder.DropTable(
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

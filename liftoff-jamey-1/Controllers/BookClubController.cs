@@ -66,25 +66,5 @@ namespace liftoff_jamey_1.Controllers
 
 
         }
-
-        private readonly HttpClient httpClient = new HttpClient();
-
-        public async Task<ActionResult> Details(int id)
-        {
-            string apiUrl = $"https://openlibrary.org/isbn/{id}[0]";
-
-            HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
-            if (response.IsSuccessStatusCode)
-            {
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                var book = JsonConvert.DeserializeObject<BookClubDetailViewModel>(jsonResponse);
-                return View(book);
-            }
-            else
-            {
-                // Handle error
-                return Content("Error fetching book details");
-            }
-        }
     }
 }
