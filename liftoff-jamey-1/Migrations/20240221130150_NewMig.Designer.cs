@@ -11,8 +11,8 @@ using liftoff_jamey_1.Data;
 namespace liftoff_jamey_1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240216012054_Migration5")]
-    partial class Migration5
+    [Migration("20240221130150_NewMig")]
+    partial class NewMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,7 +62,6 @@ namespace liftoff_jamey_1.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ScreenName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
@@ -89,7 +88,7 @@ namespace liftoff_jamey_1.Migrations
 
             modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -97,13 +96,37 @@ namespace liftoff_jamey_1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("SampleUserId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("SampleUserId");
+
                     b.ToTable("BookClubs");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.Member", b =>
+                {
+                    b.Property<string>("SampleUserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BookClubId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("SampleUserId", "BookClubId");
+
+                    b.HasIndex("BookClubId");
+
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -238,6 +261,34 @@ namespace liftoff_jamey_1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
+                {
+                    b.HasOne("liftoff_jamey_1.Areas.Identity.Data.SampleUser", "SampleUser")
+                        .WithMany("BookClubs")
+                        .HasForeignKey("SampleUserId");
+
+                    b.Navigation("SampleUser");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.Member", b =>
+                {
+                    b.HasOne("liftoff_jamey_1.Models.BookClub", "BookClub")
+                        .WithMany("Members")
+                        .HasForeignKey("BookClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("liftoff_jamey_1.Areas.Identity.Data.SampleUser", "SampleUser")
+                        .WithMany("Members")
+                        .HasForeignKey("SampleUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookClub");
+
+                    b.Navigation("SampleUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -287,6 +338,18 @@ namespace liftoff_jamey_1.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Areas.Identity.Data.SampleUser", b =>
+                {
+                    b.Navigation("BookClubs");
+
+                    b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("liftoff_jamey_1.Models.BookClub", b =>
+                {
+                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

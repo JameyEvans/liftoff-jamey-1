@@ -1,0 +1,50 @@
+﻿@using liftoff_jamey_1.Models
+@model IEnumerable<BookClub>
+
+
+@if (!Model.Any())
+{
+    <p>You are not a member of any book clubs.</p>
+}
+else
+{
+    <div class="container p-3">
+        <div class="row p-4">
+            <div class="col-6">
+                <h2 class="text-primary">
+                    MY BOOK CLUBS
+                </h2>
+            </div>
+         </div>
+    </div>
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Club Name</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-asp-controller="BookClub" asp-action="Detail" asp-route-id="@obj.Id">
+                            @obj.ClubName
+                        </a>
+                    </td>
+                    <td>@obj.Location</td>
+                    <td>@obj.Description</td>
+                    <td><form asp-controller="BookClub" asp-action="Leave" method="post">
+                        <input type="hidden" name="id" value="@obj.Id" />
+                        <button type="submit">Leave Book Club</button>
+                    </form></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,9 +1,8 @@
-﻿
-@model liftoff_jamey_1.ViewModels.BookClubDetailViewModel
+﻿@model BookClub
 
 
 @{
-    ViewData["Title"] = "Book Club Details";
+    ViewData["Title"] = "BookClub";
 }
 
 <div class="container">
@@ -15,14 +14,27 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">Location: @Model.Location</p>
-                    <p class="card-text">Creator: <!--add prop here--></p>
+                    <p class="card-text">Description: @Model.Description</p>
+                    <p class="card-text">Creator:@Model.SampleUser</p>
                     <p class="card-text">Currently Reading: <!--TODO: add prop here--></p>
-                    <p class="card-text">Members: <!--add prop here--></p>
+                    <p class="card-text">Members: @Model.Members</p>
                     <!-- Add other properties as needed -->
                 </div>
+
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Join Club</a>
-                    <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.BookClubId" class="btn btn-primary">Add Book to BookClub</a>
+
+                    <form asp-controller="BookClub" asp-action="Join" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" class="btn btn-primary" />
+                        <button type="submit">Join</button>
+                    </form>
+
+                    <a asp-controller="BookClub" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+            Edit
+        </a>
+
+                    <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-primary">
+                        Add Book to BookClub
+                    </a>
                     <!-- Add other actions as needed -->
                 </div>
             </div>

@@ -10,6 +10,9 @@
 
   <ItemGroup>
     <None Remove="Data\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Repository\" />
+    <None Remove="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -37,5 +40,8 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Repository\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>

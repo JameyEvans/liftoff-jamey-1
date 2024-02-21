@@ -1,86 +1,164 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using liftoff_jamey_1.Models;
+using liftoff_jamey_1.Interfaces;
+using liftoff_jamey_1.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using liftoff_jamey_1.Data;
-using liftoff_jamey_1.Models;
-using liftoff_jamey_1.ViewModels;
-using System;
-
+using liftoff_jamey_1.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace liftoff_jamey_1.Controllers
 {
+
+
     public class BookClubController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public BookClubController(ApplicationDbContext db)
+        //dependency injection (ref: Interface + Repo Folders)
+        private readonly IBookClubRepository _bookClubRepository;
+        private readonly ISampleUserRepository _sampleUserRepository;
+        private readonly UserManager<SampleUser> _userManager;
+
+        public BookClubController(IBookClubRepository bookClubRepository, ISampleUserRepository sampleUserRepository, UserManager<SampleUser> userManager)
         {
-            _db = db;
+            _bookClubRepository = bookClubRepository;
+            _sampleUserRepository = sampleUserRepository;
+            _userManager = userManager;
         }
 
 
-        public IActionResult Index()
+
+
+        public async Task<IActionResult> Index()     //C
         {
-            List<BookClub> bookClubs = _db.BookClubs.ToList();
-            return View(bookClubs);
+            IEnumerable<BookClub> bookClubs = await _bookClubRepository.GetAll();  //M
+            return View(bookClubs);  //V
         }
 
-        //GET
+
+        //READ
+        public async Task<IActionResult> Detail(int id)
+        {
+
+            BookClub bookClub = await _bookClubRepository.GetByIdAsync(id);
+            return View(bookClub);
+
+        }
+
+
+        //CREATE : create a bookclub 
         public IActionResult Create()
         {
-
             return View();
         }
 
-        //POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(BookClub obj)
+        public async Task<IActionResult> Create(BookClub bookClub)
         {
-            _db.BookClubs.Add(obj);
-            _db.SaveChanges();
+            if (!ModelState.IsValid) //going to check that data structure making sure it meets attribute requirements
+            {
+                return View(bookClub);
+            }
+            _bookClubRepository.Add(bookClub);
             return RedirectToAction("Index");
         }
 
-       
-        public IActionResult Detail(int id)
+        //UPDATE : changes to book club 
+        public async Task<IActionResult> Edit(int id)
         {
-            // Retrieve the book club from the database based on the id
-            var bookClub = _db.BookClubs.FirstOrDefault(bc => bc.Id == id);
-
-            if (bookClub == null)
+            var bookClub = await _bookClubRepository.GetByIdAsync(id);
+            if (bookClub == null) return View("Error");
+            var bookClubVM = new EditBookClubViewModel
             {
-                return NotFound(); // Return a 404 Not Found error if the book club doesn't exist
-            }
-
-            // Create a BookClubDetailViewModel and populate it with the details of the book club
-            BookClubDetailViewModel viewModel = new BookClubDetailViewModel
-            {
-                BookClubId = bookClub.Id,
                 ClubName = bookClub.ClubName,
                 Location = bookClub.Location,
-                // Populate other properties of the view model as needed
+                Description = bookClub.Description
+            };
+            return View(bookClubVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditBookClubViewModel bookClubVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to edit club");
+                return View("Edit", bookClubVM);
+            }
+
+            var bookClub = new BookClub
+            {
+                Id = id,
+                ClubName = bookClubVM.ClubName,
+                Location = bookClubVM.Location,
+                Description = bookClubVM.Description,
             };
 
-            return View(viewModel); // Pass the view model to the Razor view
+            _bookClubRepository.Update(bookClub);
 
-
-
-
-            //var bookClub = _db.BookClubs.FirstOrDefault(bc => bc.Id == id);
-            //BookClubDetailViewModel bookClubDetailViewModel = new BookClubDetailViewModel(bookClub);
-            //return View(bookClubDetailViewModel);
-
-            //BookClub theBookClub = _db.BookClubs.Include(b => b.ClubName).Single(j => j.Id == id);
-
-            //BookClubDetailViewModel bookClubDetailViewModel = new BookClubDetailViewModel(theBookClub);
-
-            //return View(bookClubDetailViewModel);
-
-            //Job theJob = context.Jobs.Include(j => j.Employer).Include(j => j.Skills).Single(j => j.Id == id);
-
-            //JobDetailViewModel jobDetailViewModel = new JobDetailViewModel(theJob);
-
-            //return View(jobDetailViewModel);
-
+            return RedirectToAction("Index");
         }
+
+        [Authorize] // Ensure user is authenticated
+    public async Task<IActionResult> MyClubs()
+    {
+        var currentUser = await _userManager.GetUserAsync(User);
+        if (currentUser == null)
+        {
+            return NotFound("User not found.");
+        }
+
+        var userBookClubs = await _sampleUserRepository.GetUserBookClubsAsync(currentUser.Id);
+        return View(userBookClubs);
+    }
+
+        // POST: BookClub/Join/{id}
+        [HttpPost]
+        public async Task<IActionResult> Join(int id)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var bookClub = await _bookClubRepository.GetByIdAsync(id);
+            if (bookClub == null)
+            {
+                return NotFound("Book club not found.");
+            }
+
+            // Check if the user is a member
+            var isMember = await _sampleUserRepository.IsUserMemberOfBookClubAsync(currentUser.Id, id);
+            if (isMember)
+            {
+                return BadRequest("User is already a member of this book club.");
+            }
+
+            // Add user to the book club by calling a method in your repository
+            await _sampleUserRepository.AddUserToBookClubAsync(currentUser.Id, id);
+
+            return RedirectToAction("MyClubs");
+        }
+
+        //DELETE : remove book club from Users list and remove them as a member
+        [HttpPost]
+        public async Task<IActionResult> Leave(int id)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Remove user from the book club
+            await _sampleUserRepository.RemoveUserFromBookClubAsync(currentUser.Id, id);
+
+            return RedirectToAction("MyClubs"); 
+        }
+
     }
 }
+
+    
+

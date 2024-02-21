@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using liftoff_jamey_1.Models;
 using System.Security.Cryptography.X509Certificates;
 using liftoff_jamey_1.Data;
-using liftoff_jamey_1.ViewModels;
 using Newtonsoft.Json;
 using System.Reflection;
 using liftoff_jamey_1.Controllers;
