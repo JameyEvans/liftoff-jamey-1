@@ -30,17 +30,18 @@ else
 		<tr>
 			<th>Club Name</th>
 			<th>Location</th>
-			<th></th>
+			<th>Description</th>
 		</tr>
 	</thead>
 
 	<tbody>
 		@foreach (var obj in Model)
 		{
-			<tr>
-				<td><a asp-asp-controller="BookClub" asp-action="Detail" asp-route-id="@obj.Id">@obj.ClubName</a></td>
-				<td>@obj.Location</td>
-			</tr>
+            <tr>
+                <td><a asp-asp-controller="BookClub" asp-action="Detail" asp-route-id="@obj.Id">@obj.ClubName</a></td>
+                <td>@obj.Location</td>
+                <td>@obj.Description</td>
+            </tr>
 		}
 	</tbody>
 	

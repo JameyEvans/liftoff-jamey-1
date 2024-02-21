@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace liftoff_jamey_1.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace liftoff_jamey_1.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    ScreenName = table.Column<string>(type: "TEXT", nullable: false),
+                    ScreenName = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -163,43 +163,17 @@ namespace liftoff_jamey_1.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ClubName = table.Column<string>(type: "TEXT", nullable: false),
                     Location = table.Column<string>(type: "TEXT", nullable: false),
-                    OwnerId = table.Column<string>(type: "TEXT", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    SampleUserId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookClubs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookClubs_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_BookClubs_AspNetUsers_SampleUserId",
+                        column: x => x.SampleUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserBookClubs",
-                columns: table => new
-                {
-                    UserBookClubId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    BookClubId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserBookClubs", x => x.UserBookClubId);
-                    table.ForeignKey(
-                        name: "FK_UserBookClubs_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserBookClubs_BookClubs_BookClubId",
-                        column: x => x.BookClubId,
-                        principalTable: "BookClubs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -240,19 +214,9 @@ namespace liftoff_jamey_1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookClubs_OwnerId",
+                name: "IX_BookClubs_SampleUserId",
                 table: "BookClubs",
-                column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserBookClubs_BookClubId",
-                table: "UserBookClubs",
-                column: "BookClubId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserBookClubs_UserId",
-                table: "UserBookClubs",
-                column: "UserId");
+                column: "SampleUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -273,13 +237,10 @@ namespace liftoff_jamey_1.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "UserBookClubs");
+                name: "BookClubs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "BookClubs");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
