@@ -1,6 +1,6 @@
 ﻿@model BookClub
 
-<form method="post">
+<form method="post" asp-action="Create">
     <div class="boarder p-3 mt-4">
         <div class="row pb-2">
             <h2 class="text-primary">Create A Book Club</h2>
@@ -14,7 +14,12 @@
             <label asp-for="Location"></label>
             <input asp-for="Location" class="form-control" />
         </div>
+        <div class="mb-3">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control" />
+        </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+
         <a asp-controller="BookClub" asp-action="Index" class="btn btn-secondary" style="width:150px">
             Back to club list
         </a>

@@ -13,6 +13,7 @@
     <None Remove="Views\SampleUser\" />
     <None Remove="Interfaces\" />
     <None Remove="Repository\" />
+    <None Remove="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -43,5 +44,6 @@
     <Folder Include="Views\SampleUser\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Repository\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>

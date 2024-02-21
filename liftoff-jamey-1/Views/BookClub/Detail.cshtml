@@ -14,19 +14,21 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">Location: @Model.Location</p>
-                    <p class="card-text">Location: @Model.Description</p>
+                    <p class="card-text">Description: @Model.Description</p>
                     <p class="card-text">Creator:</p>
                     <p class="card-text">Currently Reading: <!--TODO: add prop here--></p>
                     <p class="card-text">Members: <!--add prop here--></p>
                     <!-- Add other properties as needed -->
                 </div>
+
                 <div class="card-footer">
                     <form asp-action="Join" asp-controller="BookClub" method="post">
                         <input type="hidden" name="bookClubId" value="" />
-                        <button type="submit" class="btn btn-primary">Join</button>
-                    </form>
+                        <button type="submit" class="btn btn-primary">Join</button></form>
 
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <a asp-controller="BookClub" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                        Edit
+                    </a>
 
                     <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-primary">
                     Add Book to BookClub</a>
