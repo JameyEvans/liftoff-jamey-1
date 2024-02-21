@@ -11,6 +11,8 @@
   <ItemGroup>
     <None Remove="Data\" />
     <None Remove="Views\SampleUser\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -39,5 +41,7 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Views\SampleUser\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
 </Project>

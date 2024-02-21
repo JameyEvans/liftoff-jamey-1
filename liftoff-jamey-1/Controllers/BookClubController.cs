@@ -5,30 +5,30 @@ using liftoff_jamey_1.Models;
 using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using liftoff_jamey_1.Interfaces;
 
 namespace liftoff_jamey_1.Controllers
 {
     public class BookClubController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        private readonly ApplicationDbContext _userManager;
+        private readonly IBookClubRepository _bookClubRepository;
 
         //depend injection
-        public BookClubController(ApplicationDbContext db, ApplicationDbContext userManager)
+        public BookClubController(IBookClubRepository bookClubRepository)
         {
-            _db = db;
-            _userManager = userManager;
+            _bookClubRepository = bookClubRepository;
         }
 
-        public IActionResult Index()     //C
+        public async Task<IActionResult> Index()     //C
         {
-            var bookClubs = _db.BookClubs.ToList();  //M
+            IEnumerable <BookClub> bookClubs = await _bookClubRepository.GetAll();  //M
             return View(bookClubs);  //V
         }
 
-        public IActionResult Detail(int id)
+        public async Task <IActionResult> Detail(int id)
         {
-            BookClub bookClub = _db.BookClubs.FirstOrDefault(bc => bc.Id == id);
+            //use .include to create that join to user
+            BookClub bookClub = await _bookClubRepository.GetByIdAsync(id);
             return View(bookClub);
 
         }
