@@ -11,6 +11,7 @@ namespace liftoff_jamey_1.Interfaces
         Task<bool> IsUserMemberOfBookClubAsync(string userId, int bookClubId);
         Task AddUserToBookClubAsync(string userId, int bookClubId);
         Task<List<BookClub>> GetUserBookClubsAsync(string userId);
+        Task RemoveUserFromBookClubAsync(string userId, int bookClubId);
     }
 }
 

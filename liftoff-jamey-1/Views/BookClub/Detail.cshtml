@@ -15,16 +15,16 @@
                 <div class="card-body">
                     <p class="card-text">Location: @Model.Location</p>
                     <p class="card-text">Description: @Model.Description</p>
-                    <p class="card-text">Creator:</p>
+                    <p class="card-text">Creator:@Model.SampleUser</p>
                     <p class="card-text">Currently Reading: <!--TODO: add prop here--></p>
-                    <p class="card-text">Members: <!--add prop here--></p>
+                    <p class="card-text">Members: @Model.Members</p>
                     <!-- Add other properties as needed -->
                 </div>
 
                 <div class="card-footer">
 
                     <form asp-controller="BookClub" asp-action="Join" method="post">
-                        <input type="hidden" name="id" value="@Model.Id" />
+                        <input type="hidden" name="id" value="@Model.Id" class="btn btn-primary" />
                         <button type="submit">Join</button>
                     </form>
 

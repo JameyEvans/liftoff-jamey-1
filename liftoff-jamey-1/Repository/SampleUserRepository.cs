@@ -47,6 +47,16 @@ namespace liftoff_jamey_1.Repository
                 .Select(m => m.BookClub)
                 .ToListAsync();
         }
+
+        public async Task RemoveUserFromBookClubAsync(string userId, int bookClubId)
+        {
+            var member = await _db.Members.FirstOrDefaultAsync(m => m.SampleUserId == userId && m.BookClubId == bookClubId);
+            if (member != null)
+            {
+                _db.Members.Remove(member);
+                await _db.SaveChangesAsync();
+            }
+        }
     }
 }
 

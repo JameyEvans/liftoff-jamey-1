@@ -128,7 +128,7 @@ namespace liftoff_jamey_1.Controllers
                 return NotFound("Book club not found.");
             }
 
-            // Check if the user is already a member
+            // Check if the user is a member
             var isMember = await _sampleUserRepository.IsUserMemberOfBookClubAsync(currentUser.Id, id);
             if (isMember)
             {
@@ -139,7 +139,22 @@ namespace liftoff_jamey_1.Controllers
             await _sampleUserRepository.AddUserToBookClubAsync(currentUser.Id, id);
 
             return RedirectToAction("MyClubs");
+        }
 
+        //DELETE : remove book club from Users list and remove them as a member
+        [HttpPost]
+        public async Task<IActionResult> Leave(int id)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Remove user from the book club
+            await _sampleUserRepository.RemoveUserFromBookClubAsync(currentUser.Id, id);
+
+            return RedirectToAction("MyClubs"); 
         }
 
     }
