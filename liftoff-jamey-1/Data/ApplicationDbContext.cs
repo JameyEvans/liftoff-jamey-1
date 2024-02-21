@@ -22,6 +22,10 @@ namespace liftoff_jamey_1.Data
         { 
 			base.OnModelCreating(modelBuilder);
 			modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
+            modelBuilder.Entity<BookClub>()
+                .HasMany(g => g.Genres)
+                .WithMany(b => b.ClubName)
+                .UsingEntity(e => e.ToTable("ClubGenres"));           
         } 
     }
 }
