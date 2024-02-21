@@ -19,20 +19,50 @@ namespace liftoff_jamey_1.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            modelBuilder.Entity<BookClub>()
+                .Property(b => b.ClubName)
+                .IsRequired();
+
+            modelBuilder.Entity<BookClub>()
+                .Property(b => b.Location)
+                .IsRequired();
+
+            // Define relationship between BookClub and SampleUser (Creator)
+            modelBuilder.Entity<BookClub>()
+                .HasOne(bc => bc.Creator)          // Each BookClub has one Creator
+                .WithMany()                        // Creator can create many BookClubs
+                .HasForeignKey(b => b.CreatorId)  // Define the foreign key
+                .IsRequired(false);
+
+            base.OnModelCreating(modelBuilder);
+            // Allow Creator to be optional
+
+            // Other configurations...
+
+            // TODO: task 3: enter your join table relationship properties for selected book | ex: .hasmany(b => b.bookclub) 
+        }
+
+
+
+
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
             base.OnModelCreating(modelBuilder);
 
             
 
             modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
             modelBuilder.Entity<BookClub>().Property(b => b.Location).IsRequired();
+            modelBuilder.Entity<BookClub>().Property(b => b.Creator).IsRequired();
 
-            modelBuilder.Entity<BookClub>()
+            /*modelBuilder.Entity<BookClub>()
             .HasOne(bc => bc.Creator) // Each BookClub has one Creator
-            .WithMany() // Creator can create many BookClubs
+            .WithMany()               // Creator can create many BookClubs
             .HasForeignKey(b => b.CreatorId) // Define the foreign key
             .IsRequired(false);
             
             //TODO: task 3: enter your join table relationship properties for selected book | ex: .hasmany(b => b.bookclub) 
-        }
+        }*/
     }
 }

@@ -11,8 +11,8 @@ using liftoff_jamey_1.Data;
 namespace liftoff_jamey_1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240221001735_AddACreatorToDatabase1")]
-    partial class AddACreatorToDatabase1
+    [Migration("20240221025432_AddACreatorToDatabase3")]
+    partial class AddACreatorToDatabase3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,10 @@ namespace liftoff_jamey_1.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Creator")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
