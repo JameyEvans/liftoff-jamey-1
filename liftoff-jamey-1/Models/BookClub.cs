@@ -16,6 +16,9 @@ namespace liftoff_jamey_1.Models
         public string? SampleUserId { get; set; }
         public SampleUser? SampleUser { get; set; }
 
+        public ICollection<Member>? Members { get; set; }
+
+
         public BookClub(string clubName, string location) 
         {
             ClubName = clubName;

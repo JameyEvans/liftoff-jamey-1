@@ -22,16 +22,19 @@
                 </div>
 
                 <div class="card-footer">
-                    <form asp-action="Join" asp-controller="BookClub" method="post">
-                        <input type="hidden" name="bookClubId" value="" />
-                        <button type="submit" class="btn btn-primary">Join</button></form>
+
+                    <form asp-controller="BookClub" asp-action="Join" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit">Join</button>
+                    </form>
 
                     <a asp-controller="BookClub" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
-                        Edit
-                    </a>
+            Edit
+        </a>
 
                     <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-primary">
-                    Add Book to BookClub</a>
+                        Add Book to BookClub
+                    </a>
                     <!-- Add other actions as needed -->
                 </div>
             </div>

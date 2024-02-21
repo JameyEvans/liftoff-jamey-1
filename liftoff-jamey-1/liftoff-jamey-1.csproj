@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <None Remove="Data\" />
-    <None Remove="Views\SampleUser\" />
     <None Remove="Interfaces\" />
     <None Remove="Repository\" />
     <None Remove="ViewModels\" />
@@ -41,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Views\SampleUser\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Repository\" />
     <Folder Include="ViewModels\" />

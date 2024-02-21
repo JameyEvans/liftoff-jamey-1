@@ -14,7 +14,7 @@ namespace liftoff_jamey_1.Data
         }
 
         public DbSet<BookClub> BookClubs { get; set; }
-        
+        public DbSet<Member> Members { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +24,18 @@ namespace liftoff_jamey_1.Data
             modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
             modelBuilder.Entity<BookClub>().Property(b => b.Location).IsRequired();
 
+            modelBuilder.Entity<Member>()
+            .HasKey(m => new { m.SampleUserId, m.BookClubId });
+
+            modelBuilder.Entity<Member>()
+                .HasOne(m => m.SampleUser)
+                .WithMany(u => u.Members)
+                .HasForeignKey(m => m.SampleUserId);
+
+            modelBuilder.Entity<Member>()
+                .HasOne(m => m.BookClub)
+                .WithMany(bc => bc.Members)
+                .HasForeignKey(m => m.BookClubId);
         }
     }
 }

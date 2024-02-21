@@ -10,7 +10,7 @@ namespace liftoff_jamey_1.Areas.Identity.Data
         public string? ScreenName { get; set; }
 
         public ICollection<BookClub> BookClubs { get; set; }
-
+        public ICollection<Member>? Members { get; set; }
     }
 }
 

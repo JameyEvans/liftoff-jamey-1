@@ -1,0 +1,18 @@
+﻿@using liftoff_jamey_1.Models
+@model IEnumerable<BookClub>
+
+<h2>My Book Clubs</h2>
+
+@if (!Model.Any())
+{
+    <p>You are not a member of any book clubs.</p>
+}
+else
+{
+    <ul>
+        @foreach (var club in Model)
+        {
+            <li>@club.ClubName. - @club.Description</li>
+        }
+    </ul>
+}
