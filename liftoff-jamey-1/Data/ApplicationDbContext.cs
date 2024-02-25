@@ -16,7 +16,8 @@ namespace liftoff_jamey_1.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<BookClub> BookClubs { get; set; }
+        public DbSet<BookClub>? BookClubs { get; set; }
+        public DbSet<Genre>? Genres { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
@@ -24,7 +25,7 @@ namespace liftoff_jamey_1.Data
 			modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
             modelBuilder.Entity<BookClub>()
                 .HasMany(g => g.Genres)
-                .WithMany(b => b.ClubName)
+                .WithMany(b => b.BookClubs)
                 .UsingEntity(e => e.ToTable("ClubGenres"));           
         } 
     }
