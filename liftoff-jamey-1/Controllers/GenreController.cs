@@ -16,7 +16,7 @@ namespace liftoff_jamey_1.Controllers
             context = dBcontext;
         }
 
-        // GET /<controller>/
+        // GET
         public IActionResult Index()
         {
             List<Genre> genres = context.Genres.ToList();
@@ -73,6 +73,13 @@ namespace liftoff_jamey_1.Controllers
                 return View();
             }
             return View();
+        }
+
+        public IActionResult Detail(int id) 
+        {
+            Genre theGenre = context.Genres.Include(b => b.BookClubs).Where(g => g.Id == id).First();
+
+            return View(theGenre);
         }
     }
 }
