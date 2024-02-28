@@ -15,6 +15,7 @@
                 <div class="card-body">
                     <p class="card-text">Location: @Model.Location</p>
                     <p class="card-text">Description: @Model.Description</p>
+                    <p class="card-text">Genre:</p>
                     <p class="card-text">Creator:@Model.SampleUser</p>
                     <p class="card-text">Currently Reading: <!--TODO: add prop here--></p>
                     <p class="card-text">Members: @Model.Members</p>
@@ -31,6 +32,9 @@
                     <a asp-controller="BookClub" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
             Edit
         </a>
+                    <a asp-controller="Genre" asp-action="AddClub" asp-route-id="@Model.Id" class="btn btn-primary">
+                        Add Genre
+                    </a>
 
                     <a asp-controller="Search" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-primary">
                         Add Book to BookClub

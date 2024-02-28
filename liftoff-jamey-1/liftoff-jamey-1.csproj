@@ -40,8 +40,5 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Repository\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>

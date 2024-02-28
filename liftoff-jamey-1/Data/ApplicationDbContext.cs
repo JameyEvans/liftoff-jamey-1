@@ -15,7 +15,7 @@ namespace liftoff_jamey_1.Data
 
         public DbSet<BookClub> BookClubs { get; set; }
         public DbSet<Member> Members { get; set; }
-
+        public DbSet<Genre> Genres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,12 @@ namespace liftoff_jamey_1.Data
 
             modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
             modelBuilder.Entity<BookClub>().Property(b => b.Location).IsRequired();
+
+            modelBuilder.Entity<BookClub>()
+                .HasMany(g => g.Genres)
+                .WithMany(b => b.BookClubs)
+                .UsingEntity(e => e.ToTable("ClubGenres"));
+
 
             modelBuilder.Entity<Member>()
             .HasKey(m => new { m.SampleUserId, m.BookClubId });
