@@ -12,6 +12,8 @@ namespace liftoff_jamey_1.Interfaces
 		Task<IEnumerable<BookClub>> GetAll();
 		Task<BookClub> GetByIdAsync(int id);
 
+		Task<BookClub> GetByIdGenreAsync(int id);
+
 		//CRUDs
 		bool Add(BookClub bookClub);
 		bool Update(BookClub bookClub);

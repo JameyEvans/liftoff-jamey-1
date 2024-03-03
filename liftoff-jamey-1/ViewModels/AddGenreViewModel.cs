@@ -8,12 +8,6 @@ namespace liftoff_jamey_1.ViewModels
         public int ClubId { get; set; }
         public BookClub? BookClub { get; set; }
         public List<SelectListItem>? Genres { get; set; }
-
-		public string ClubName { get; set; }
-
-		public string Location { get; set; }
-
-		public string Description { get; set; }
 		public int GenreId { get; set; }
 
         public AddGenreViewModel(BookClub bookClub, List<Genre> possibleGenres)

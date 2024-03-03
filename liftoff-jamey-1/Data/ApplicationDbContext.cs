@@ -19,8 +19,7 @@ namespace liftoff_jamey_1.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
+            
             modelBuilder.Entity<BookClub>().Property(b => b.ClubName).IsRequired();
             modelBuilder.Entity<BookClub>().Property(b => b.Location).IsRequired();
 
@@ -42,6 +41,8 @@ namespace liftoff_jamey_1.Data
                 .HasOne(m => m.BookClub)
                 .WithMany(bc => bc.Members)
                 .HasForeignKey(m => m.BookClubId);
-        }
+
+			base.OnModelCreating(modelBuilder);
+		}
     }
 }

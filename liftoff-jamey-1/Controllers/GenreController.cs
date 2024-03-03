@@ -44,12 +44,16 @@ namespace liftoff_jamey_1.Controllers
         [HttpGet]
         public async Task<IActionResult> AddClub(int id)
         {
-            var bookClub = await _bookClubRepository.GetByIdAsync(id);
-            List<Genre> genreList = _db.Genres.ToList();
-            var addGenreVM = new AddGenreViewModel(bookClub, genreList);
-          
+            BookClub bookClub = _db.BookClubs.Find(id);
+
             
-            return View(addGenreVM);
+                List<Genre> genreList = _db.Genres.ToList();
+                AddGenreViewModel addGenreVM = new AddGenreViewModel(bookClub, genreList);
+
+
+                return View(addGenreVM);
+            
+            
         }
 
         [HttpPost]
@@ -60,16 +64,20 @@ namespace liftoff_jamey_1.Controllers
             {
                 int genreId = addGenreVM.GenreId;
                 int clubId = addGenreVM.ClubId;
-                BookClub bookClub = await _bookClubRepository.GetByIdAsync(clubId);
-                Genre theGenre = _db.Genres.Where(g => g.Id == genreId).First();
 
+
+                BookClub bookClub = _db.BookClubs.Include(g => g.Genres).Where(e => e.Id == clubId).First();
+                Genre theGenre = _db.Genres.Where(g => g.Id == genreId).First();
+                // bookClub is null here, i do not know why
                 bookClub.Genres.Add(theGenre);
+                
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
+                
             }
 
             return View(addGenreVM);
 		}
-    }
+    }   
 }
