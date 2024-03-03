@@ -79,8 +79,6 @@ namespace liftoff_jamey_1.Controllers
                 Description = bookClub.Description
             };
             
-
-
             return View(bookClubVM);
         }
 
@@ -100,12 +98,12 @@ namespace liftoff_jamey_1.Controllers
                 Location = bookClubVM.Location,
                 Description = bookClubVM.Description,
             };
-            bookClub.Genres.Add(_applicationDbContext.Genres.Where(g => g.Id == bookClubVM.GenreId).First());
-
-            _bookClubRepository.Update(bookClub);
+		    
+			_bookClubRepository.Update(bookClub);
 
             return RedirectToAction("Index");
         }
+
 
         [Authorize] // Ensure user is authenticated
     public async Task<IActionResult> MyClubs()

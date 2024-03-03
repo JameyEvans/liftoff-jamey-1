@@ -46,7 +46,6 @@ namespace liftoff_jamey_1.Controllers
         {
             var bookClub = await _bookClubRepository.GetByIdAsync(id);
             List<Genre> genreList = _db.Genres.ToList();
-
             var addGenreVM = new AddGenreViewModel(bookClub, genreList);
           
             
@@ -54,35 +53,23 @@ namespace liftoff_jamey_1.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddClub(int id, AddGenreViewModel addGenreVM)
+        public async Task<IActionResult> AddClub(AddGenreViewModel addGenreVM)
         {
-            if (!ModelState.IsValid)
+            // this should work and i have no clue why very awesome and cool
+            if (ModelState.IsValid)
             {
-                Console.WriteLine("Error");
-                ModelState.AddModelError("", "Failed to update");
-				return View(addGenreVM);
-				
+                int genreId = addGenreVM.GenreId;
+                int clubId = addGenreVM.ClubId;
+                BookClub bookClub = await _bookClubRepository.GetByIdAsync(clubId);
+                Genre theGenre = _db.Genres.Where(g => g.Id == genreId).First();
+
+                bookClub.Genres.Add(theGenre);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
-			int genreId = addGenreVM.GenreId;
-            int clubId = addGenreVM.ClubId;
-            BookClub bookClub = _db.BookClubs.Include(g => g.Genres).Where(c => c.Id == clubId).First();
-			Genre genre = _db.Genres.Where(g => g.Id == genreId).First();
-			/*var bookClub = new BookClub
-			{
-				Id = id,
-				ClubName = addGenreVM.ClubName,
-				Location = addGenreVM.Location,
-				Description = addGenreVM.Description,
-			};
 
-			bookClub.Genres.Add(genre);
-            */
-
-            
-            _db.SaveChanges();
-		
-			return RedirectToAction("Index");
-
+            return View(addGenreVM);
 		}
     }
 }
