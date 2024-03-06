@@ -4,7 +4,6 @@
 @{
 }
 
-@using liftoff_jamey_1.Models
 @model IEnumerable<Genre>
 
 <div class="container p-3">
@@ -23,17 +22,16 @@
 <table class="table table-bordered table-striped" style="width:100%">
 	<thead>
 		<tr>
+			<th>Id</th>
 			<th>Genre</th>
-			<th>BookClubs</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var obj in Model)
+		@foreach (var genre in Model)
 		{
 			<tr>
-				<td>@obj.GenreName</td>
-				<td>@obj.BookClubs</td>
+				<td>@genre.Id</td>
+				<td><a asp-controller="Genre" asp-action="Detail" asp-route-id="@genre.Id">@genre.GenreName</a></td>
 			</tr>
 		}
 	</tbody>

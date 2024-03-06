@@ -59,7 +59,6 @@ namespace liftoff_jamey_1.Controllers
         [HttpPost]
         public async Task<IActionResult> AddClub(AddGenreViewModel addGenreVM)
         {
-            // this should work and i have no clue why very awesome and cool
             if (ModelState.IsValid)
             {
                 int genreId = addGenreVM.GenreId;
@@ -68,7 +67,7 @@ namespace liftoff_jamey_1.Controllers
 
                 BookClub bookClub = _db.BookClubs.Include(g => g.Genres).Where(e => e.Id == clubId).First();
                 Genre theGenre = _db.Genres.Where(g => g.Id == genreId).First();
-                // bookClub is null here, i do not know why
+           
                 bookClub.Genres.Add(theGenre);
                 
                 _db.SaveChanges();
@@ -79,5 +78,11 @@ namespace liftoff_jamey_1.Controllers
 
             return View(addGenreVM);
 		}
+        public IActionResult Detail(int id)
+        {
+            Genre genre = _db.Genres.Include(b => b.BookClubs).Where(g => g.Id == id).First();
+
+            return View(genre);
+        }
     }   
 }
