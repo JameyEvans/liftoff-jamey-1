@@ -15,10 +15,19 @@
                 <div class="card-body">
                     <p class="card-text">Location: @Model.Location</p>
                     <p class="card-text">Description: @Model.Description</p>
-                    <p class="card-text">Genres:</p> @foreach(Genre genre in Model.Genres.ToList())
-                    {
-                        <p class="card-text">@genre.GenreName</p>
+                    @{List<Genre> genres = Model.Genres.ToList();}
+                    @{string genreText = "";}
+                    @{
+                                    for (int i = 0; i < genres.Count; i++)
+                        {
+                            genreText += (genres[i].GenreName);
+                            if (i < genres.Count - 1)
+                            {
+                                genreText += ", ";
+                            }
+                        }
                     }
+                    <p class="card-text">Genres: @genreText</p> 
                     <p class="card-text">Creator:@Model.SampleUser</p>
                     <p class="card-text">Currently Reading: <!--TODO: add prop here--></p>
                     <p class="card-text">Members: @Model.Members</p>
