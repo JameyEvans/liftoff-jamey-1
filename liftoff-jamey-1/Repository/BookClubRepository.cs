@@ -38,7 +38,7 @@ namespace liftoff_jamey_1.Repository
 
         public async Task<BookClub> GetByIdAsync(int id)
         {                                                           //have to have this include to bring in nav property
-            return await _db.BookClubs.Include(u => u.SampleUser).FirstOrDefaultAsync(i => i.Id == id);
+            return await _db.BookClubs.Include(g => g.Genres).Include(u => u.SampleUser).FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<BookClub> GetByIdGenreAsync(int id)
