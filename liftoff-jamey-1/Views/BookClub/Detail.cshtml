@@ -17,7 +17,10 @@
                     <p class="card-text">Description: @Model.Description</p>
                     @{List<Genre> genres = Model.Genres.ToList();}
                     @{string genreText = "";}
-                    @{
+                    @if (genres.Count == 0)
+                    {
+                        genreText = "No genres added.";
+                    } else {
                                     for (int i = 0; i < genres.Count; i++)
                         {
                             genreText += (genres[i].GenreName);
