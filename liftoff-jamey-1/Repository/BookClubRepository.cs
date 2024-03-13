@@ -6,21 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace liftoff_jamey_1.Repository
 {
-	public class BookClubRepository : IBookClubRepository
-	{
+    public class BookClubRepository : IBookClubRepository
+    {
         //repository is centered around your database
         //and your bringing in your database and dropping it in
         private readonly ApplicationDbContext _db;
-        
-		public BookClubRepository(ApplicationDbContext db)
-		{
+
+        public BookClubRepository(ApplicationDbContext db)
+        {
             _db = db;
-		}
+        }
 
         //Always need to implement this interface (inherting from) have to bring in all methods
         public bool Add(BookClub bookClub)
         {
-            _db.Add(bookClub); 
+            _db.Add(bookClub);
             return Save();
         }
 
@@ -33,14 +33,18 @@ namespace liftoff_jamey_1.Repository
         public async Task<IEnumerable<BookClub>> GetAll()
         {
             return await _db.BookClubs.ToListAsync();
-            
+
         }
 
         public async Task<BookClub> GetByIdAsync(int id)
         {                                                           //have to have this include to bring in nav property
-            return await _db.BookClubs.Include(u=>u.SampleUser).FirstOrDefaultAsync(i => i.Id == id);
+            return await _db.BookClubs.Include(g => g.Genres).Include(u => u.SampleUser).FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public async Task<BookClub> GetByIdGenreAsync(int id)
+        {
+            return await _db.BookClubs.Include(g => g.Genres).FirstOrDefaultAsync(i => i.Id == id);
+        }
         public bool Save()
         {
             var saved = _db.SaveChanges();

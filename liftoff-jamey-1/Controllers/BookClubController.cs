@@ -14,16 +14,19 @@ namespace liftoff_jamey_1.Controllers
 
     public class BookClubController : Controller
     {
+        
         //dependency injection (ref: Interface + Repo Folders)
         private readonly IBookClubRepository _bookClubRepository;
         private readonly ISampleUserRepository _sampleUserRepository;
         private readonly UserManager<SampleUser> _userManager;
 
-        public BookClubController(IBookClubRepository bookClubRepository, ISampleUserRepository sampleUserRepository, UserManager<SampleUser> userManager)
+        private readonly ApplicationDbContext _applicationDbContext;
+        public BookClubController(IBookClubRepository bookClubRepository, ISampleUserRepository sampleUserRepository, UserManager<SampleUser> userManager, ApplicationDbContext applicationDbContext)
         {
             _bookClubRepository = bookClubRepository;
             _sampleUserRepository = sampleUserRepository;
             _userManager = userManager;
+            _applicationDbContext = applicationDbContext;
         }
 
 
@@ -67,6 +70,7 @@ namespace liftoff_jamey_1.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var bookClub = await _bookClubRepository.GetByIdAsync(id);
+            List<Genre> possibleGenres = _applicationDbContext.Genres.ToList();
             if (bookClub == null) return View("Error");
             var bookClubVM = new EditBookClubViewModel
             {
@@ -74,6 +78,7 @@ namespace liftoff_jamey_1.Controllers
                 Location = bookClub.Location,
                 Description = bookClub.Description
             };
+            
             return View(bookClubVM);
         }
 
@@ -93,11 +98,12 @@ namespace liftoff_jamey_1.Controllers
                 Location = bookClubVM.Location,
                 Description = bookClubVM.Description,
             };
-
-            _bookClubRepository.Update(bookClub);
+		    
+			_bookClubRepository.Update(bookClub);
 
             return RedirectToAction("Index");
         }
+
 
         [Authorize] // Ensure user is authenticated
     public async Task<IActionResult> MyClubs()
