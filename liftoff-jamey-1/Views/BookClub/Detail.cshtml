@@ -12,11 +12,12 @@
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">Club: @Model.ClubName</h2>
+                    <script src="https://openlibrary.org/search.json?q"></script>
                 </div>
                 <div class="card-body">
                     <p class="card-text">Location: @Model.Location</p>
                     <p class="card-text">Creator: <!--add prop here--></p>
-                    <p class="card-text">Currently Reading: <a asp-route-id="@Model.BookId">@Model.BookId</a>  <!--TODO: add prop here--></p>
+                    <p class="card-text">Currently Reading: @Model.BookId<!--TODO: add prop here--></p>
                     <p class="card-text">Members: <!--add prop here--></p>
                     <!-- Add other properties as needed -->
                 </div>

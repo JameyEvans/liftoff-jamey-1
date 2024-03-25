@@ -9,50 +9,21 @@ using liftoff_jamey_1.Models;
 
 namespace liftoff_jamey_1.Controllers
 {
-	public class BookController : Controller
-	{
-        private readonly IHttpClientFactory _httpClientFactory;
+    public class BookController : Controller
+    {
         private readonly ApplicationDbContext _db;
-
-        public BookController(IHttpClientFactory httpClientFactory, ApplicationDbContext db)
-		{
-            _httpClientFactory = httpClientFactory;
+        public BookController(ApplicationDbContext db)
+        {
             _db = db;
         }
 
-        public async Task<IActionResult> FetchAndSaveBook()
+        public async Task<ActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://openlibrary.org/search.json?q=$");
+            var httpClient = new HttpClient();
+            var json = await httpClient.GetStringAsync("https://openlibrary.org/api/books?bibkeys=ISBN:0451526538&jscmd=data&format=json");
+            var book = JsonConvert.DeserializeObject<Book>(json);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                // Handle error
-                return StatusCode((int)response.StatusCode);
-            }
-
-            var content = await response.Content.ReadAsStringAsync();
-            var bookData = JsonConvert.DeserializeObject<Book>(content);
-
-            // Extract book information
-            var id = bookData.Id;
-            var title = bookData.Title;
-            var author = bookData.Author;
-            var datepublished = bookData.DatePublished;
-
-            // Save book to the database
-            var book = new Book
-            {
-                Id = id,
-                Title = title,
-                Author = author,
-                DatePublished = datepublished,
-            };
-
-            _db.Books.Add(book);
-            await _db.SaveChangesAsync();
-
-            return RedirectToAction("BookClub", "Detail"); // Redirect to home page or any other page
+            return View(book);
         }
     }
 }

@@ -25,8 +25,8 @@ namespace liftoff_jamey_1.Controllers
             return View(bookClubs);
         }
 
-        //GET
-        public IActionResult Create()
+            //GET
+            public IActionResult Create()
         {
 
             return View();
@@ -41,6 +41,22 @@ namespace liftoff_jamey_1.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult Update(int id, string key)
+        {
+            var bookClub = _db.BookClubs.FirstOrDefault(bc => bc.Id == id);
+
+            if (bookClub == null)
+            {
+                return NotFound();
+            }
+            bookClub.BookId = key;
+            _db.BookClubs.Update(bookClub);
+            _db.SaveChanges();
+            return Json(new { success = true, message = "Update successful", redirectUrl = Url.Action("Detail", new { id = id }) });
+        }
+        //bookclub id and bookid
 
         public IActionResult Detail(int id)
         {
